@@ -9,7 +9,7 @@ import { Settings, StorageContext, VectorStoreIndex , storageContextFromDefaults
 import path from 'path';
 dotenv.config();
 
-
+// multer file upload
 const storage = multer.diskStorage({
   destination: function(req, file,cb){
     cb(null, 'public/')
@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
 
 var storageContext : StorageContext
 
+//
 const llm = gemini({
   apiKey: process.env.GOOGLE_API_KEY,
   model: GEMINI_MODEL.GEMINI_2_5_PRO_LATEST// or "gemini-1.5-pro"
@@ -35,17 +36,12 @@ const upload = multer({storage:storage})
 const app = express();
 
 app.use(cors({origin:"http://localhost:4200"}));
-// app.use(cors({
-//   origin: '*', // or specify your allowed origin
-//   methods: ['POST', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type'],
-// }));
 app.use(express.static('public'))
 app.use(express.json())
 
-
+//upload file
 app.post('/upload',upload.single('pdf'), async (req,res,next) =>{
-  const pdfFile = await readdir('public')
+  const pdfFile = await readdir('public') //delete pdf files
   for (const file of pdfFile) {
       const filePath = path.join("public", file);
       const stat = await lstat(filePath);
@@ -54,7 +50,7 @@ app.post('/upload',upload.single('pdf'), async (req,res,next) =>{
       }
     }
 
-  const storgeFile = await readdir('storage')
+  const storgeFile = await readdir('storage') // delete vectors
   for (const file of storgeFile) {
       const filePath = path.join("storage", file);
       const stat = await lstat(filePath);
@@ -62,11 +58,11 @@ app.post('/upload',upload.single('pdf'), async (req,res,next) =>{
         await unlink(filePath);
       }
     }
-  console.log(req.file?.filename)
   createVectorIndex(req.file?.filename!)
   res.send({path:`${req.file?.filename}`})
 })
 
+// querying document endpoint
 app.get('/query/:query', async(req,res)=>{
   console.log(req.params.query)
   const result = await doQuery(req.params.query)
@@ -77,6 +73,7 @@ app.listen(8000, async () => {
   console.log('server started')
 })
 
+//creating index using pdf file
 async function createVectorIndex(fileName:string) {
    storageContext = await storageContextFromDefaults({
       persistDir: "storage",
@@ -87,6 +84,7 @@ async function createVectorIndex(fileName:string) {
     const index = await VectorStoreIndex.fromDocuments(documents, { storageContext });
 }
 
+//querying function
 async function doQuery(query:string){
   const index = await VectorStoreIndex.init({ storageContext });
   const queryEngine = index.asQueryEngine();

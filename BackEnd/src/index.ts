@@ -34,12 +34,12 @@ const upload = multer({storage:storage})
 
 const app = express();
 
-//app.use(cors({origin:"https://famous-syrniki-380ae1.netlify.ap"}));
-app.use(cors({
-  origin: '*', // or specify your allowed origin
-  methods: ['POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-}));
+app.use(cors({origin:"http://localhost:4200"}));
+// app.use(cors({
+//   origin: '*', // or specify your allowed origin
+//   methods: ['POST', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type'],
+// }));
 app.use(express.static('public'))
 app.use(express.json())
 

@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="item">
+    <div class="message-area">
+      <button matButton="elevated" routerLink='/'>Upload New File</button>
+      <ul>
+        @for (item of data; track item.message) {
+        <li [ngStyle]="{'background-color': item.isAnswer?'#edc7d6':'#0eeaa4'}">{{ item.message }}</li>
+        @for (i of item.page; track i){
+          <button matButton="elevated" [ngStyle]="{'margin-bottom':'5px'}" (click)="page=i">Page {{i}}</button>
+        }
+        
+        } 
+      </ul>
+    </div>
+    <div class="btn-area">
+      <mat-form-field>
+        <mat-label>Ask about the document... </mat-label>
+        <input matInput [(ngModel)]="query" (keyup.enter)="ask()"/>
+        <button
+          mat-button
+          (click)="ask()"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+        >
+          <mat-icon
+            matSuffix
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="upload"
+          ></mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="item">
+    <pdf-viewer
+      [src]="pdfSrc"
+      [render-text]="true"
+      [original-size]="false"
+      [page]="page"
+    ></pdf-viewer>
+  </div>
+</div>

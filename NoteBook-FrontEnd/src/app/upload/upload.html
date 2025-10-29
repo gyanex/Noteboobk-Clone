@@ -1,0 +1,24 @@
+<div>
+  <mat-card
+    class="example-card"
+    appearance="outlined"
+    (click)="fileInput.click()"
+  >
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Example home icon"
+      fontIcon="upload"
+    ></mat-icon>
+    <mat-card-content>
+      <strong>Upload PDF to start Chatting</strong>
+      <p>click or drag and drop your file</p>
+    </mat-card-content>
+    <input
+      class="file-input"
+      type="file"
+      #fileInput
+      accept=".pdf"
+      (change)="upload($event)"
+    />
+  </mat-card>
+</div>

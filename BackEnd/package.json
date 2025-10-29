@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "author": "Rahul Tiwari",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@llamaindex/google": "^0.3.22",
+    "@llamaindex/openai": "^0.4.20",
+    "@llamaindex/readers": "^3.1.21",
+    "@netlify/functions": "^5.0.1",
+    "@types/cors": "^2.8.19",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "llama-cloud-services": "^0.3.10",
+    "llamaindex": "^0.12.0",
+    "multer": "^2.0.2",
+    "pdf-parse": "^2.4.5",
+    "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.9.1",
+    "nodemon": "^3.x.x",
+    "ts-node": "^10.x.x",
+    "typescript": "^5.9.3"
+  }
+}

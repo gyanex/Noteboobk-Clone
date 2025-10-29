@@ -1,0 +1,19 @@
+div {
+  height: 100vh;
+  background-color: darkgrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-card {
+  width: 20%;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.file-input {
+  display: none;
+}

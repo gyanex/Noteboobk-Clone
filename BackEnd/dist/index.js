@@ -34,7 +34,11 @@ llamaindex_1.Settings.embedModel = new google_1.GeminiEmbedding({
 });
 const upload = (0, multer_1.default)({ storage: storage });
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({ origin: "http://localhost:4200" }));
+app.use((0, cors_1.default)({
+    origin: "https://famous-syrniki-380ae1.netlify.app/",
+    allowedHeaders: ['Content-Type'],
+    credentials: true,
+}));
 app.use(express_1.default.static('public'));
 app.use(express_1.default.json());
 //upload file
